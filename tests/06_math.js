@@ -463,9 +463,9 @@ describe('Math扩展函数的单元测试', () => {
       $.math.quantile([6, 7, 15, 36, 39, 40, 41, 42, 43, 47, 49], 3),
       42.5
     )
-    assertLog($.math.quantile([1, 2, 3, 4], 1), 1.5)
+    assertLog($.math.quantile([1, 2, 3, 4], 1), 1.75)
     assertLog($.math.quantile([1, 2, 3, 4], 2), 2.5)
-    assertLog($.math.quantile([1, 2, 3, 4], 3), 3.5)
+    assertLog($.math.quantile([1, 2, 3, 4], 3), 3.25)
     assertLog($.math.quantile([]), NaN)
     assertLog($.math.quantile([7], 1), 7)
     assertLog($.math.quantile([7], 2), 7)
@@ -549,7 +549,7 @@ describe('Math扩展函数的单元测试', () => {
   it(`polyFitting ${rst4.f}`, () =>
     assertLog(
       JSON.stringify(rst4),
-      `{"r":0.013006877594921203,"f":"y=7.8503*x^6-0.6815*x^5-11.8914*x^4+3.5150*x^3+6.1567*x^2-1.9026*x-0.4031 R^2=0.013"}`
+      `{"r":0.013006877594921203,"f":"y=7.8503*x^6-0.6815*x^5-11.8914*x^4+3.5150*x^3+6.1567*x^2-1.9026*x-0.4031 R^2=0.013","formula":["7.8503*x^6","-0.6815*x^5","-11.8914*x^4","3.5150*x^3","6.1567*x^2","-1.9026*x^1","-0.4031"]}`
     ))
 })
 

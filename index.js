@@ -69,7 +69,6 @@ const cFn = function cFn (s, fc, dimNum, bc, isUnderline) {
  */
 
 const c = {
-
   /*
   http://stanislavs.org/helppc/ansi_codes.html
   */
@@ -153,7 +152,7 @@ const _d = require('./lib/date')
 ext(Date.prototype, _d)
 const _f = require('./lib/function')
 ext(Function.prototype, _f)
-const _a = require('./lib/array')
+const _a = require('./lib/array.js')
 ext(Array.prototype, _a)
 _proto_ = {
   a: _a,
@@ -194,17 +193,19 @@ Date.prototype.fillStr = String.prototype.fillStr //eslint-disable-line
  * // "123456"
  * */
 
-Buffer.prototype.contact = function (b) {
-  /*
+Buffer.prototype.contact =
+  Buffer.prototype.contact ||
+  function (b) {
+    /*
   utf8 有bom头
   EF BB BF [239 187 191]
   */
 
-  const buf = Buffer.alloc(this.length + b.length)
-  this.copy(buf, 0, 0, this.length)
-  b.copy(buf, this.length, 0, b.length)
-  return buf
-}
+    const bf = Buffer.alloc(this.length + b.length)
+    this.copy(bf, 0, 0, this.length)
+    b.copy(bf, this.length, 0, b.length)
+    return bf
+  }
 
 /**
  * 获取错误堆栈跟踪数据
@@ -237,8 +238,7 @@ const log = function log (...args) {
         ':' +
         RegExp.$2 +
         ' ' +
-        new Date().date2Str()
-          .replaceAll('-', '')
+        new Date().date2Str().replaceAll('-', '')
     ) +
     ']'
   let str = ''
@@ -268,8 +268,7 @@ const err = function err (...args) {
         ':' +
         RegExp.$2 +
         ' ' +
-        new Date().date2Str()
-          .replaceAll('-', '')
+        new Date().date2Str().replaceAll('-', '')
     ) +
     ']'
   let str = ''
@@ -362,7 +361,8 @@ const Snowflake = require('./lib/Snowflake.js')
 const NaiveBayes = require('./lib/NaiveBayes.js')
 const Spinner = require('./lib/Spinner.js')
 const Mock = require('./lib/Mock.js')
-
+const qrcode = require('./lib/qrcode.js')
+const buf = require('./lib/buf.js')
 /**
  * 把数组里的函数挨个执行，并且把前面函数的返回值传给下一个函数
  * @param {...function[]} [funcs]
@@ -496,7 +496,6 @@ function drawTable (data, colWidth = [], opt = { color: 0 }) {
 const benchmark = function benchmark (
   fn = function () {
     /* do nothing */
-
   },
   msg = '',
   n = 1000000
@@ -505,21 +504,29 @@ const benchmark = function benchmark (
   let everyTime = 0
   let timeSpend = 0
   let dt = 0
+  let minDt = Infinity
+  let maxDt = -Infinity
   for (let i = 0; i < n; i++) {
     everyTime = performance.now()
     fn()
     dt = performance.now() - everyTime
     timeSpend += dt
+    minDt = dt < minDt ? dt : minDt
+    maxDt = dt > minDt ? dt : maxDt
   }
   const diffTime = timeSpend
-  const spendTime = diffTime.toFixed(0) + ' ms'
-  const perSec =
-    ((n / diffTime * 10000 / 10000 | 0) + '').toMoney() + ' /ms'
+  const spendTime = diffTime.toFixed(0)
+  const perSec = (((n / diffTime) * 10000) / 10000) | 0
   console.log(
     c.y((fn.name || '').fillStr(' ', 15)),
-    spendTime.fillStr(' ', 8),
-    perSec.fillStr(' ', 10),
+    (spendTime + ' ms').fillStr(' ', 8, -1),
+    ((perSec + '').toMoney() + ' /ms').fillStr(' ', 10, -1),
     n.toExponential() + ' 次',
+    (
+      '±' +
+      (((maxDt - minDt) / 2 / (spendTime / n)) * 100).round(2) +
+      '%'
+    ).fillStr(' ', 9, -1),
     msg
   )
 }
@@ -530,6 +537,7 @@ console.log(
 const exportObj = {
   _proto_,
   benchmark,
+  buf,
   c,
   color,
   compare,
@@ -547,6 +555,7 @@ const exportObj = {
   now,
   option,
   pipe,
+  qrcode,
   reg,
   requireAll,
   Snowflake,
