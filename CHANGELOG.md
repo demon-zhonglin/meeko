@@ -1,3 +1,235 @@
+## [1.8.105](https://github.com/kongnet/meeko/compare/v1.8.104...v1.8.105) (2020-07-06)
+
+
+
+
+## [1.8.104](https://github.com/kongnet/meeko/compare/v1.8.103...v1.8.104) (2020-07-01)
+
+
+### :sparkles:
+
+* 增加身份证检测函数 ([b2a796e](https://github.com/kongnet/meeko/commit/b2a796e))
+
+
+
+## [1.8.103](https://github.com/kongnet/meeko/compare/v1.8.102...v1.8.103) (2020-06-16)
+
+
+### :art:
+
+* genHtml加入head扩展部分 ([e9b6b10](https://github.com/kongnet/meeko/commit/e9b6b10))
+
+
+
+## [1.8.102](https://github.com/kongnet/meeko/compare/v1.8.101...v1.8.102) (2020-06-12)
+
+
+
+
+## [1.8.101](https://github.com/kongnet/meeko/compare/v1.8.100...v1.8.101) (2020-06-12)
+
+
+
+
+## [1.8.100](https://github.com/kongnet/meeko/compare/v1.8.99...v1.8.100) (2020-06-12)
+
+
+### :art:
+
+* grid模板挂到tools下 ([5355b84](https://github.com/kongnet/meeko/commit/5355b84))
+
+
+
+## [1.8.99](https://github.com/kongnet/meeko/compare/v1.8.98...v1.8.99) (2020-06-09)
+
+
+
+
+## [1.8.98](https://github.com/kongnet/meeko/compare/v1.8.97...v1.8.98) (2020-06-09)
+
+
+
+
+## [1.8.97](https://github.com/kongnet/meeko/compare/v1.8.96...v1.8.97) (2020-06-09)
+
+
+
+
+## [1.8.96](https://github.com/kongnet/meeko/compare/v1.8.95...v1.8.96) (2020-06-09)
+
+
+### :sparkles:
+
+* 增加html grid模板 ([5265102](https://github.com/kongnet/meeko/commit/5265102))
+
+
+
+## [1.8.95](https://github.com/kongnet/meeko/compare/v1.8.94...v1.8.95) (2020-06-08)
+
+
+
+
+## [1.8.94](https://github.com/kongnet/meeko/compare/v1.8.93...v1.8.94) (2020-06-08)
+
+
+### :art:
+
+* eslint ([ffe9644](https://github.com/kongnet/meeko/commit/ffe9644))
+
+
+
+## [1.8.93](https://github.com/kongnet/meeko/compare/v1.8.92...v1.8.93) (2020-06-08)
+
+
+
+
+## [1.8.92](https://github.com/kongnet/meeko/compare/v1.8.90...v1.8.92) (2020-06-08)
+
+
+### :sparkles:
+
+* 增加样本和全体协方差，增加协方差矩阵算法 ([8304fe2](https://github.com/kongnet/meeko/commit/8304fe2))
+
+### :zap:
+
+* 修改增强pca算法 ([2eda8bc](https://github.com/kongnet/meeko/commit/2eda8bc))
+
+
+
+## [1.8.90](https://github.com/kongnet/meeko/compare/v1.8.89...v1.8.90) (2020-06-05)
+
+
+### :sparkles:
+
+* 增加数据清洗函数，修改checkparam enum string不允许null NaN等 ([9e21c77](https://github.com/kongnet/meeko/commit/9e21c77))
+
+
+
+## [1.8.89](https://github.com/kongnet/meeko/compare/v1.8.88...v1.8.89) (2020-06-04)
+
+
+
+
+## [1.8.88](https://github.com/kongnet/meeko/compare/v1.8.87...v1.8.88) (2020-06-04)
+
+
+### :sparkles:
+
+* 增加pca输出格式 ([0a41cf4](https://github.com/kongnet/meeko/commit/0a41cf4))
+
+
+
+## [1.8.87](https://github.com/kongnet/meeko/compare/v1.8.86...v1.8.87) (2020-06-03)
+
+
+
+
+## [1.8.86](https://github.com/kongnet/meeko/compare/v1.8.85...v1.8.86) (2020-06-03)
+
+
+
+
+## [1.8.85](https://github.com/kongnet/meeko/compare/v1.8.84...v1.8.85) (2020-06-03)
+
+
+
+
+## [1.8.84](https://github.com/kongnet/meeko/compare/v1.8.83...v1.8.84) (2020-06-03)
+
+
+### :sparkles:
+
+* 增加pca降维函数 ([108232c](https://github.com/kongnet/meeko/commit/108232c))
+
+
+
+## [1.8.83](https://github.com/kongnet/meeko/compare/v1.8.82...v1.8.83) (2020-06-02)
+
+
+### :sparkles:
+
+* 修改knn的自动拆包数目，默认训练集的20% ([4cdb501](https://github.com/kongnet/meeko/commit/4cdb501))
+
+
+
+## [1.8.82](https://github.com/kongnet/meeko/compare/v1.8.81...v1.8.82) (2020-05-30)
+
+
+### :sparkles:
+
+* 增加百度高德互转 ([0b55bac](https://github.com/kongnet/meeko/commit/0b55bac))
+
+
+
+## [1.8.81](https://github.com/kongnet/meeko/compare/v1.8.80...v1.8.81) (2020-05-30)
+
+
+
+
+## [1.8.80](https://github.com/kongnet/meeko/compare/v1.8.79...v1.8.80) (2020-05-30)
+
+
+### :sparkles:
+
+* 增加geohash实现 ([fadd6c6](https://github.com/kongnet/meeko/commit/fadd6c6))
+
+
+
+## [1.8.79](https://github.com/kongnet/meeko/compare/v1.8.78...v1.8.79) (2020-05-28)
+
+
+### :sparkles:
+
+* 增加lup分解 ([0861326](https://github.com/kongnet/meeko/commit/0861326))
+
+
+
+## [1.8.78](https://github.com/kongnet/meeko/compare/v1.8.77...v1.8.78) (2020-05-26)
+
+
+
+
+## [1.8.77](https://github.com/kongnet/meeko/compare/v1.8.76...v1.8.77) (2020-05-26)
+
+
+### :sparkles:
+
+* 增加KNN机器学习 ([374fbec](https://github.com/kongnet/meeko/commit/374fbec))
+
+
+
+## [1.8.76](https://github.com/kongnet/meeko/compare/v1.8.75...v1.8.76) (2020-05-26)
+
+
+### :sparkles:
+
+* 增加距离函数 ([1cb117d](https://github.com/kongnet/meeko/commit/1cb117d))
+
+
+
+## [1.8.75](https://github.com/kongnet/meeko/compare/v1.8.74...v1.8.75) (2020-05-23)
+
+
+### :sparkles:
+
+* 增加组合排列数组型输出 ([51b9ba7](https://github.com/kongnet/meeko/commit/51b9ba7))
+
+
+
+## [1.8.74](https://github.com/kongnet/meeko/compare/v1.8.73...v1.8.74) (2020-05-13)
+
+
+### :sparkles:
+
+* 增加矩阵基础操作 ([9f65211](https://github.com/kongnet/meeko/commit/9f65211))
+
+
+
+## [1.8.73](https://github.com/kongnet/meeko/compare/v1.8.72...v1.8.73) (2020-03-25)
+
+
+
+
 ## [1.8.72](https://github.com/kongnet/meeko/compare/v1.8.71...v1.8.72) (2020-03-25)
 
 

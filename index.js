@@ -2,7 +2,7 @@
 'use strict'
 const { PerformanceObserver, performance } = require('perf_hooks')
 const Pack = require('./package.json')
-
+const path = require('path')
 const cFn = function cFn (s, fc, dimNum, bc, isUnderline) {
   /**
    * 返回控制台颜色包裹体
@@ -358,11 +358,13 @@ const tpl = require('./lib/tpl')
 const color = require('./lib/color')
 const requireAll = require('./lib/requireDir')
 const Snowflake = require('./lib/Snowflake.js')
-const NaiveBayes = require('./lib/NaiveBayes.js')
+const ml = requireAll({ dirname: path.join(__dirname, '.', 'lib', 'ml') })
+
 const Spinner = require('./lib/Spinner.js')
 const Mock = require('./lib/Mock.js')
 const qrcode = require('./lib/qrcode.js')
 const buf = require('./lib/buf.js')
+const geo = require('./lib/geo.js')
 /**
  * 把数组里的函数挨个执行，并且把前面函数的返回值传给下一个函数
  * @param {...function[]} [funcs]
@@ -548,6 +550,7 @@ const exportObj = {
   fake,
   file,
   getStackTrace,
+  geo,
   json,
   log,
   math,
@@ -559,7 +562,7 @@ const exportObj = {
   reg,
   requireAll,
   Snowflake,
-  NaiveBayes,
+  ml,
   Spinner,
   tools,
   tpl,

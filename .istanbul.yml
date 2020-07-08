@@ -8,5 +8,8 @@ instrumentation:
       '**/lib/reg/**',
       '**/lib/color.js',
       '**/lib/file.js',
+      '**/lib/geo.js',
       '**/lib/qrcode.js',
+      '**/lib/ml/**',
+      '**/lib/template/**',
     ]
