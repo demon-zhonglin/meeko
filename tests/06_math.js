@@ -417,9 +417,33 @@ for (let i = 0; i < rawData.length; i += 2) {
   polyX.push(rawData[i])
   polyY.push(rawData[i + 1])
 }
+// https://wenku.baidu.com/view/cc0f9b0f52ea551810a68716.html
+let smoothY = [
+  12.9,
+  14.91,
+  15.96,
+  14.41,
+  14.57,
+  14.6,
+  15.35,
+  15.84,
+  16.9,
+  18.26,
+  17.4,
+  18.71,
+  19.53,
+  20.82
+]
+let diff1 = $.math.exponentialSmoothing(smoothY)
+let diff2 = $.math.exponentialSmoothing(diff1)
+let diff3 = $.math.exponentialSmoothing(diff2)
 
+//console.log(y, diff1, diff2, diff3)
 describe('Math扩展函数的单元测试', () => {
   const a = [2, 1, 8.1, 3, 4, 5.1, 6.7]
+  it('genRange', () => {
+    assertLog($.math.genRange(0, 5, 2).join(','), [0, 2, 4, 6, 8, 10].join(','))
+  })
   it('sum', () => {
     assertLog($.math.sum(a).toFixed(1), '29.9')
   })
@@ -453,6 +477,11 @@ describe('Math扩展函数的单元测试', () => {
     assertLog($.math.quantile(a, 2), 4)
     assertLog($.math.quantile(a, 1), 2.5)
     assertLog($.math.quantile(a, 3), 5.9)
+    assertLog($.math.quantile(a, 0), 1)
+    assertLog($.math.quantile(a, 4), 8.1)
+    assertLog($.math.quantile(a, 0, 'exec'), NaN)
+    assertLog($.math.quantile(a, 4, 'exec'), NaN)
+    assertLog($.math.quantile(a, 5), 4)
     assertLog(
       $.math.quantile([6, 7, 15, 36, 39, 40, 41, 42, 43, 47, 49], 1),
       25.5
@@ -477,6 +506,12 @@ describe('Math扩展函数的单元测试', () => {
     assertLog($.math.quantile([2], 1), null)
 
     assertLog($.math.quantile([1, 2, 3, 4, 5], 1), 3.5) */
+  })
+  it('quantileAll 四分位数', () => {
+    assertLog(
+      JSON.stringify($.math.quantileAll(a)),
+      '{"min":1,"Q1":2.5,"Q2":4,"Q3":5.9,"max":8.1,"IQR":3.4000000000000004,"upper":9.3,"lower":2.5}'
+    )
   })
   it('variance 方差 5.542041', () =>
     assertLog($.math.variance(a).toFixed(6), '5.542041'))
@@ -616,6 +651,13 @@ describe('Math相关系数函数单元测试', () => {
   it(`spearman相关指数 5个人的视觉[170, 150, 210, 180, 160]、听觉反应时[180, 165, 190, 168, 172]（单位：毫秒）两个变量排序后计算`, () => {
     assertLog(rst6.toFixed(1), '0.7')
   })
+  const rst6_1 = $.math.spearman(
+    [5.05, 6.75, 3.21, 2.66],
+    [1.65, 26.5, -5.93, 7.96]
+  )
+  it(`spearman相关指数 [5.05, 6.75, 3.21, 2.66], [1.65, 26.5, -5.93, 7.96]`, () => {
+    assertLog(rst6_1.toFixed(1), '0.4')
+  })
   const rst7 = $.math.kendall(
     [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55],
     [1, 0.95, 0.95, 0.9, 0.85, 0.7, 0.65, 0.6, 0.55, 0.42]
@@ -672,5 +714,16 @@ describe('第k个最大最小', () => {
   it('第k个最大最小', () => {
     assertLog($.math.largek(rawData, 6), 9.545351287)
     assertLog($.math.smallk(rawData, 6), -9.005651691)
+  })
+})
+
+describe('hash函数', () => {
+  let r = $.math.murmurHash('你好,世界!')
+  it('murmurHash', () => {
+    assertLog(r, 1508440480)
+    assertLog(
+      r.toString(2).fillStr('0', 32, -1),
+      '01011001111010001111100110100000'
+    )
   })
 })
