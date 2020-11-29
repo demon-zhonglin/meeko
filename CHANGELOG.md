@@ -1,3 +1,44 @@
+## [1.8.139](https://github.com/kongnet/meeko/compare/v1.8.138...v1.8.139) (2020-09-24)
+
+
+### :zap:
+
+* 增加pageRank例子 ([c3f6061](https://github.com/kongnet/meeko/commit/c3f6061))
+
+
+
+## [1.8.138](https://github.com/kongnet/meeko/compare/v1.8.137...v1.8.138) (2020-09-24)
+
+
+
+
+## [1.8.137](https://github.com/kongnet/meeko/compare/v1.8.136...v1.8.137) (2020-09-23)
+
+
+### :sparkles:
+
+* 增加deCamelize 默认分割符- ([8ac0fbf](https://github.com/kongnet/meeko/commit/8ac0fbf))
+
+
+
+## [1.8.136](https://github.com/kongnet/meeko/compare/v1.8.135...v1.8.136) (2020-09-11)
+
+
+### :zap:
+
+* 增加mat中map函数的行列参数 ([e8de3cf](https://github.com/kongnet/meeko/commit/e8de3cf))
+
+
+
+## [1.8.135](https://github.com/kongnet/meeko/compare/v1.8.134...v1.8.135) (2020-08-21)
+
+
+### :ambulance:
+
+* (K) K值step=2增加 ([019af30](https://github.com/kongnet/meeko/commit/019af30))
+
+
+
 ## [1.8.134](https://github.com/kongnet/meeko/compare/v1.8.133...v1.8.134) (2020-08-18)
 
 
