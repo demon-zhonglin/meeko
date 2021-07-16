@@ -1,6 +1,6 @@
 {
   "name": "meeko",
-  "version": "1.8.140",
+  "version": "1.8.164",
   "description": "meeko自用函数",
   "main": "index.js",
   "scripts": {
@@ -8,11 +8,14 @@
     "cz": "conventional-changelog -p atom -i CHANGELOG.md -s -r 0 && git add . && git status && git cz",
     "push": "npm version patch && npm publish . && git push",
     "jsdoc": "jsdoc ./README.md --configure  ./jsdoc.config.js",
-    "snazzy": "snazzy *.js ./lib/**/*.js --verbose",
     "testlocal": "standard *.js && istanbul cover ./node_modules/mocha/bin/_mocha -- -r co-mocha --reporter spec --timeout 100000 --recursive tests/",
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha -- -r co-mocha --reporter spec --timeout 100000 --recursive tests/",
+    "test_new": "nyc mocha --timeout 100000 --recursive tests/",
+    "test": "mocha --recursive tests/",
     "test2": "istanbul cover ./node_modules/mocha/bin/_mocha -- -r co-mocha --reporter mochawesome --timeout 100000 --recursive tests/",
-    "coveralls": "istanbul cover _mocha -- -r co-mocha --reporter spec --timeout 100000 --recursive tests/ && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "codecov": "nyc mocha --recursive tests/ && cat ./coverage/lcov.info | codecov",
+    "cov": "nyc --reporter html --reporter text npm test",
+    "coveralls": "nyc --reporter=lcov mocha --timeout 100000 --recursive tests/ && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "coveralls_old": "istanbul cover _mocha -- -r co-mocha --reporter spec --timeout 100000 --recursive tests/ && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -28,6 +31,7 @@
     "cc-jt": "^0.1.26",
     "chai": "^4.2.0",
     "co-mocha": "^1.2.2",
+    "codecov": "^3.8.1",
     "conventional-changelog-cli": "^2.0.23",
     "coveralls": "*",
     "cz-jt": "^0.1.7",
@@ -36,7 +40,7 @@
     "mocha": "^8.0.1",
     "mochawesome": "^4.0.1",
     "mockjs": "*",
-    "standard": "^13.1.0"
+    "nyc": "^15.1.0"
   },
   "standard": {
     "globals": [
@@ -52,10 +56,9 @@
     ]
   },
   "eslintConfig": {
-    "parser": "babel-eslint",
     "plugins": [],
     "parserOptions": {
-      "ecmaVersion": 2017,
+      "ecmaVersion": 2020,
       "sourceType": "module",
       "ecmaFeatures": {
         "experimentalObjectRestSpread": true,

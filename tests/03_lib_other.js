@@ -199,6 +199,7 @@ describe('其他函数的单元测试', function () {
     assertLog(tempIds.length, 10)
   })
 })
+
 describe('模板引擎单元测试', function () {
   it('tpl', function () {
     $.tpl.config()
@@ -225,6 +226,7 @@ describe('模板引擎单元测试', function () {
     ) // 模板结构不对
   })
 })
+
 describe('判断类型函数单元测试', function () {
   it('getType', function () {
     assertLog($.tools.getType({}), 'Object')
@@ -597,12 +599,12 @@ describe('pipe', function () {
       s => s.fillStr('0', 4, -1), // -------不足4位部分左边填0
       s => `\\u${s}` // --------------------转成\uxxxx 形式
     )('Test') // ----------------------- => \u0054
-    assertLog(`\\u0054`, r)
+    assertLog('\\u0054', r)
   })
 })
 describe('obj2Url', function () {
   it('obj2Url', function () {
-    assertLog(`a=1&b=2&c=x`, $.tools.obj2Url({ a: 1, b: 2, c: 'x' }))
+    assertLog('a=1&b=2&c=x', $.tools.obj2Url({ a: 1, b: 2, c: 'x' }))
   })
 })
 describe('objByString', function () {

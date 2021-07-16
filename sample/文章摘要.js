@@ -1,6 +1,6 @@
 const $ = require('meeko')
-let Segment = require('segment')
-let segment = new Segment()
+const Segment = require('segment')
+const segment = new Segment()
 segment.useDefault()
 
 function similarity (x = [], y = []) {
@@ -14,9 +14,9 @@ function similarity (x = [], y = []) {
 }
 // 开始分词
 // https://finance.sina.com.cn/roll/2020-01-15/doc-iihnzahk4156789.shtml
-let title = '北上广等调整共有产权住房管理政策 申购资格松绑'
+const title = '北上广等调整共有产权住房管理政策 申购资格松绑'
 
-let text = `价格便宜一半！ 共有产权房如何助力住房小康
+const text = `价格便宜一半！ 共有产权房如何助力住房小康
 　　周边房价6万元，一个住宅项目却只卖2.9万元，是不是很诱人？这种看上去很美好的事情，近两年来时常出现在共有产权住房项目上。
 　　岁末年初，北京、上海、广州等地相继调整共有产权住房管理政策，在申购资格上多有“松绑”，符合一定条件的非户籍群体也可申购。
 　　比如，1月10日，上海市公布了《上海市人民政府关于修改〈上海市共有产权保障住房管理办法〉的决定》（下称《决定》），自2020年2月1日起施行。
@@ -50,19 +50,21 @@ let text = `价格便宜一半！ 共有产权房如何助力住房小康
 　　这是一宗集体建设用地，按照规划，该宗地内将建设共有产权住房，销售均价为每平方米2.9万元，含全装修费用。地块规划建筑面积108059平方米，以成交价格计算，楼面价格约为1.4万元/平方米。
 　　在集体建设用地上建设可公开对外销售的住房，这应是全国第一例。
 　　不过，共有产权住房原本已经属于新生事物，而利用集体建设用地建共有产权房更是新上加新，这也导致外界的观望情绪较高。与上述成交地块一同挂牌的另外两宗集体建设用地，至今仍未成功出让。`
+
 /**
  *
  * @param {String} text
  * @param {Integer} sentenceNum
  * @param {Array} split
  */
+
 function abstract (
   text = '',
   sentenceNum = 3,
   split = ['，', '。', '；', '？', '：', '！', '…']
 ) {
-  let splitArr = split
-  let objText = segment
+  const splitArr = split
+  const objText = segment
     .doSegment(text, {
       simple: true
     })
@@ -78,37 +80,37 @@ function abstract (
     sentenceText = sentenceText.replaceAll(splitArr[i], '$#$')
   }
 
-  let sentenceArr = sentenceText.split('$#$').filter(Boolean)
+  const sentenceArr = sentenceText.split('$#$').filter(Boolean)
 
   const sentenceValArr = []
   let n = 0
   sentenceArr.forEach(item => {
-    let r = segment
+    const r = segment
       .doSegment(item, {
         simple: true
       })
       .count()
     sentenceValArr.push([])
-    for (let i in objText) {
+    for (const i in objText) {
       sentenceValArr[n].push(r[i] ? +r[i] : 0)
     }
     n++
   })
 
-  //console.log(sentenceValArr, n)
+  // console.log(sentenceValArr, n)
 
   const sentenceSimArr = []
   const sentenceSimVal = []
   for (let i = 0; i < n; i++) {
     sentenceSimArr[i] = []
     for (let d = 0; d < n; d++) {
-      let r = similarity(sentenceValArr[i], sentenceValArr[d])
+      const r = similarity(sentenceValArr[i], sentenceValArr[d])
       sentenceSimArr[i].push(r)
     }
     const simSum = $.math.sum(sentenceSimArr[i])
     sentenceSimVal.push({ idx: i, text: sentenceArr[i], sum: simSum })
   }
-  //console.log(sentenceSimVal)
+  // console.log(sentenceSimVal)
 
   const resultArr = []
   sentenceSimVal
@@ -121,5 +123,5 @@ function abstract (
   return resultArr
 }
 
-let r = abstract(text)
+const r = abstract(text)
 console.log(r.join(','))

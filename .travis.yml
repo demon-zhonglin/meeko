@@ -2,6 +2,8 @@ sudo: false
 language: node_js
 node_js:
   - stable
+install:
+  - yarn
 addons:
   sonarcloud:
     organization: "$SONAR_ORG"
@@ -9,4 +11,5 @@ addons:
       secure: "$SONAR_TOKEN"
 after_script:
   - npm run coveralls
+  - npm run codecov
   - sonar-scanner

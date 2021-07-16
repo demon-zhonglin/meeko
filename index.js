@@ -1,12 +1,13 @@
 /* istanbul ignore next */
-'use strict'
-const { PerformanceObserver, performance } = require('perf_hooks')
+
+const { ext, array, date, number, string } = require('./lib/prototypeExt.js')
+const bench = require('./lib/bench.js')
 const Pack = require('./package.json')
 const path = require('path')
 const tools = require('./lib/tools')
 const c = tools.c
 
-var getGlobal = function () {
+const getGlobal = function () {
   if (typeof self !== 'undefined') {
     return self
   }
@@ -17,7 +18,7 @@ var getGlobal = function () {
     return global
   }
 }
-let globalThis = getGlobal()
+const globalThis = getGlobal()
 
 /**
  * @description 合并两个对象，与 Object.assign 类似，但只能合并两个
@@ -26,100 +27,9 @@ let globalThis = getGlobal()
  * @return {object} a对象，此方法并不会生成新对象
  * */
 
-function ext (a, b, isCall = false) {
-  if (a && b) {
-    for (const item in b) {
-      if (!a.hasOwnProperty(item)) {
-        if (isCall) {
-          a[item] = (first, ...arg) => b[item].apply(first, arg)
-        } else {
-          a[item] = b[item]
-        }
-      } else {
-        globalThis.isMeekoLoad &&
-          console.log(c.g(item.toUpperCase()), 'ES2015-2021 new method')
-      }
-    }
-    return a
-  }
-  return null
-}
-let _proto_ = {}
-
-const _s = require('./lib/string')
-ext(String.prototype, _s)
-const string = {}
-ext(string, _s, 1)
-
-const _n = require('./lib/number')
-ext(Number.prototype, _n)
-const number = {}
-ext(number, _n, 1)
-
-const _d = require('./lib/date')
-ext(Date.prototype, _d)
-const date = {}
-ext(date, _d, 1)
-
-const _f = require('./lib/function')
-ext(Function.prototype, _f)
-
-const _a = require('./lib/array.js')
-ext(Array.prototype, _a)
-const array = {}
-ext(array, _a, 1)
-_proto_ = {
-  a: _a,
-  d: _d,
-  n: _n,
-  s: _s
-}
-
 const option = {
   logTime: true
 }
-
-/**
- * @memberof Date_prototype#
- * @param {string} str - 填充字符
- * @param {number} len - 总长度
- * @param {number} pos - 1右面，-1左面
- * @description 给日期前后补充字符串
- * @function fillStr
- * @return {string}
- * @example
- * new Date().fillStr('a', 50)
- * // Tue Dec 29 2015 01:11:01 GMT+0800 (中国标准时间)aa
- */
-Date.prototype.fillStr = String.prototype.fillStr //eslint-disable-line
-
-/**
- * @namespace Buffer_prototype
- * */
-/**
- * @memberof Buffer_prototype#
- * @description 合并两个Buffer
- * @function contact
- * @param {Buffer} b 另一Buffer
- * @return {Buffer}
- * @example
- * Buffer.from('123').contact(Buffer.from('456')).toString()
- * // "123456"
- * */
-
-Buffer.prototype.contact =
-  Buffer.prototype.contact ||
-  function (b) {
-    /*
-  utf8 有bom头
-  EF BB BF [239 187 191]
-  */
-
-    const bf = Buffer.alloc(this.length + b.length)
-    this.copy(bf, 0, 0, this.length)
-    b.copy(bf, this.length, 0, b.length)
-    return bf
-  }
 
 /**
  * 获取错误堆栈跟踪数据
@@ -138,7 +48,7 @@ const re = os.includes('win32')
 const trace = console
 
 /**
- * @param {...mixed[]} args 要打印的参数
+ * @param {...any[]} args 要打印的参数
  * */
 
 const log = function log (...args) {
@@ -149,10 +59,11 @@ const log = function log (...args) {
     ' [' +
     c.dimg(
       RegExp.$1 +
-        ':' +
-        RegExp.$2 +
-        ' ' +
-        new Date().date2Str().replaceAll('-', '')
+      ':' +
+      RegExp.$2 +
+      ' ' +
+      new Date().date2Str()
+        .replaceAll('-', '')
     ) +
     ']'
   let str = ''
@@ -168,7 +79,7 @@ const log = function log (...args) {
 }
 
 /**
- * @param {...mixed[]} args 要打印的参数
+ * @param {...any[]} args 要打印的参数
  * */
 
 const err = function err (...args) {
@@ -179,10 +90,11 @@ const err = function err (...args) {
     ' [' +
     c.dimr(
       RegExp.$1 +
-        ':' +
-        RegExp.$2 +
-        ' ' +
-        new Date().date2Str().replaceAll('-', '')
+      ':' +
+      RegExp.$2 +
+      ' ' +
+      new Date().date2Str()
+        .replaceAll('-', '')
     ) +
     ']'
   let str = ''
@@ -209,7 +121,7 @@ function strColor (k, v) {
 
 /**
  * dir json着色函数.
- * @param {...array<mixed>} args 任何参数
+ * @param {...array<any>} args 任何参数
  */
 
 const dir = function dir (...args) {
@@ -233,8 +145,8 @@ const dir = function dir (...args) {
 
 /**
  * 返回一个sort函数，用于给对象数组根据某字段排序，类似sql中的order by
- * @param {string} k 排序根据的k
- * @param {enum} dir 可选 desc|asc
+ * @param {String} k 排序根据的k
+ * @param {String} order 可选 desc|asc
  * @return function
  * @example
  * [{ 'name': 'a', lev: 1 }, { name: 'b', lev: 2 }].sort($.compare('lev', 'desc'))
@@ -249,7 +161,7 @@ function compare (k, order) {
 
 /**
  * setTimeout的promise版
- * @param {int} t 毫秒
+ * @param {Number} t 毫秒
  * @return Promise
  * @example
  * await $.wait(5000)
@@ -280,10 +192,12 @@ const Mock = require('./lib/Mock.js')
 const qrcode = require('./lib/qrcode.js')
 const buf = require('./lib/buf.js')
 const geo = require('./lib/geo.js')
+const cryptoExt = require('./lib/CryptoExt.js')
+
 /**
  * 把数组里的函数挨个执行，并且把前面函数的返回值传给下一个函数
- * @param {...function[]} [funcs]
- * @return mixed
+ * @param {any} [funcs]
+ * @return void 0
  * @example
  * $.pipe(arg=>{return arg.push(1)},arg=>{return arg.push(2))([0])
  * // [0,1,2]
@@ -311,54 +225,6 @@ const json = {
 
 const now = () => new Date()
 
-/**
- * benchmark，性能测试函数.
- * @param {function} fn - 被执行的函数.
- * @param {number} n - 执行次数.
- * @return {string} 返回 [函数名] [执行时间] 毫秒 [每毫秒运行次数]/ms [执行次数] 次.
- * @example
- * let prime = function () { return (641).isPrime() }
- * $.benchmark(prime)
- * // prime     41 毫秒  24390.2439/ms 1e+6 次
- */
-
-const benchmark = function benchmark (
-  fn = function () {
-    /* do nothing */
-  },
-  msg = '',
-  n = 1000000
-) {
-  const t = performance.now()
-  let everyTime = 0
-  let timeSpend = 0
-  let dt = 0
-  let minDt = Infinity
-  let maxDt = -Infinity
-  for (let i = 0; i < n; i++) {
-    everyTime = performance.now()
-    fn()
-    dt = performance.now() - everyTime
-    timeSpend += dt
-    minDt = dt < minDt ? dt : minDt
-    maxDt = dt > minDt ? dt : maxDt
-  }
-  const diffTime = timeSpend
-  const spendTime = diffTime.toFixed(0)
-  const perSec = (((n / diffTime) * 10000) / 10000) | 0
-  console.log(
-    c.y((fn.name || '').fillStr(' ', 15)),
-    (spendTime + ' ms').fillStr(' ', 8, -1),
-    ((perSec + '').toMoney() + ' /ms').fillStr(' ', 10, -1),
-    n.toExponential() + ' 次',
-    (
-      '±' +
-      (((maxDt - minDt) / 2 / (spendTime / n)) * 100).round(2) +
-      '%'
-    ).fillStr(' ', 9, -1),
-    msg
-  )
-}
 globalThis.isMeekoLoad &&
   console.log(
     c.g('✔'),
@@ -368,16 +234,18 @@ globalThis.isMeekoLoad &&
   )
 globalThis.isMeekoLoad = true
 const exportObj = {
-  _proto_,
+  // _proto_,
   array,
   date,
   number,
   string,
-  benchmark,
+  bench,
+  benchmark: bench.benchmark,
   buf,
   c,
   color,
   compare,
+  Crypto: cryptoExt,
   dir,
   drawTable: tools.drawTable,
   err,
